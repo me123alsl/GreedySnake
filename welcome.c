@@ -1,6 +1,5 @@
 #include<curses.h>
-#include<stdlib.h>
-#include<string.h>
+#include"greedysnake.h"
 
 void welcome() {
 	char *greedy[14] = {
@@ -51,7 +50,7 @@ void welcome() {
 		int i;
 		for (i = 0; i < strlen(message); ++i) {
 			addch(message[i]);
-			napms(30);
+			napms(15);
 			refresh();
 		}
 		getch();
@@ -71,19 +70,11 @@ void welcome() {
 	for (i = 0; i < 14; ++i) {
 		for (j = 0; j < len; ++j) {
 			mvwaddch(wel, i, j, greedy[i][j]);
-			napms(1);
+			napms(2);
 			mvwaddch(wel, i+16, len-1-j, snake[i][len-1-j]);
 			wrefresh(wel);
 		}
 	}
-
+	napms(3000);
 	getch();
-}
-
-int main()
-{
-	initscr();
-	welcome();
-	endwin();
-	return 0;
 }
