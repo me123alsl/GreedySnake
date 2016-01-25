@@ -37,12 +37,12 @@ void welcome() {
 
 	// Create a welcome window which exactly the same size as stdscr.
 	WINDOW *wel;
-
 	if ((wel = newwin(0, 0, 0, 0)) == NULL) {
 		addstr("Unable to allocate window memory\n");
 		endwin();
 		exit(1);
 	}
+
 	int row, col;
 	getmaxyx(wel, row, col);
 	char *message = "You font size is too big. You need to adjust the font size of you terminal so you can see the whole effects!\nNow hit any key to terminate the program and then press CTRL_- to adjust the font size of your terminal!\n";
@@ -75,6 +75,6 @@ void welcome() {
 			wrefresh(wel);
 		}
 	}
-	napms(3000);
+	sleep(3);
 	getch();
 }
