@@ -77,15 +77,17 @@ void welcome() {
 	 * 4 -> blue, 5 -> magenta, 6 -> cyan, 7 -> white. */
 	int i, j, color_pair;
 	for (i = 0; i < 14; ++i) {
-		color_pair = i;
-		init_pair(color_pair, i % COLORS, i % COLORS);
-		attrset(COLOR_PAIR(color_pair));
 		for (j = 0; j < len; ++j) {
+			color_pair = i;
+			if ((i+j)%COLORS == COLOR_BLACK) init_pair(color_pair, (i+j+1)%COLORS, COLOR_BLACK);
+			else init_pair(color_pair, (i+j) % COLORS, COLOR_BLACK);
+			wattron(wel, COLOR_PAIR(color_pair));
 			mvwaddch(wel, i, j, greedy[i][j]);
 			wrefresh(wel);
 			napms(2);
 			mvwaddch(wel, i+16, len-1-j, snake[i][len-1-j]);
 			wrefresh(wel);
+			wattroff(wel, COLOR_PAIR(color_pair));
 		}
 	}
 	sleep(3);
