@@ -1,6 +1,6 @@
 #include"greedysnake.h"
 
-void welcome() {
+void welcome(WINDOW *wel, int row, int col) {
 	char *greedy[14] = {
 		"   ################      ##############         ################     ##################     ################      ##              ## ",
 		"  ##                    ##            ##       ##                    ##                     ##             ##      ##            ##  ",
@@ -35,15 +35,8 @@ void welcome() {
 	};
 
 	// Create a welcome window which exactly the same size as stdscr.
-	WINDOW *wel;
-	if ((wel = newwin(0, 0, 0, 0)) == NULL) {
-		die("Unable to allocate window memory\n");
-	}
-
-	int row, col;
-	getmaxyx(wel, row, col);
 	char *message = "You font size is too big. You need to adjust the font size of you terminal so you can see the whole effects!\nNow hit any key to terminate the program and then press CTRL_- to adjust the font size of your terminal!\n";
-	if (row < 30 || col < 135) {
+	if (row < 28 || col < 135) {
 		int i;
 		for (i = 0; i < strlen(message); ++i) {
 			addch(message[i]);
@@ -66,12 +59,13 @@ void welcome() {
 
 	int len = strlen(greedy[0]);
 
-	/* Center the wel_msg */
+	/* Center the wel_msg
 	char *wel_msg = "Welcome to Greedy Snake!";
 	int wel_msg_len = strlen(wel_msg);
 	int indent = len - wel_msg_len;
 	mvwaddstr(wel, 32, indent/2, wel_msg);
 	wrefresh(wel);
+	*/
 
 	/* 0 -> black, 1 -> red, 2 -> green, 3 -> yellow,
 	 * 4 -> blue, 5 -> magenta, 6 -> cyan, 7 -> white. */
@@ -84,12 +78,10 @@ void welcome() {
 			wattron(wel, COLOR_PAIR(color_pair));
 			mvwaddch(wel, i, j, greedy[i][j]);
 			wrefresh(wel);
-			napms(2);
-			mvwaddch(wel, i+16, len-1-j, snake[i][len-1-j]);
+			napms(1);
+			mvwaddch(wel, i+14, len-1-j, snake[i][len-1-j]);
 			wrefresh(wel);
 			wattroff(wel, COLOR_PAIR(color_pair));
 		}
 	}
-	sleep(3);
-	getch();
 }

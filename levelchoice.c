@@ -1,46 +1,79 @@
-#include<curses.h>
 #include"greedysnake.h"
-/*
+
 void drawlevel(WINDOW *level_win, int lev_item) {
-	char *level_choice[LEV] = {
+	char *choices[LEV] = {
 		"Level 1",
 		"Level 2",
-		"Level 3"
+		"q for quit",
+		"? for help"
 	};
 	wclear(level_win);
-	int level_num;
-	for (level_num = 0; level_num < LEV; ++level_num) {
-		if (level_num == lev_item) attron(A_REVERSE);
-		mvwaddstr(level_win, 3+(level_num*2), 20, level_choice[level_num]);
-		attroff(A_REVERSE);
+	switch (lev_item) {
+		case 0:
+			wattron(level_win, A_REVERSE);
+			mvwaddstr(level_win, 1, 25, choices[0]);
+			wattroff(level_win, A_REVERSE);
+			mvwaddstr(level_win, 3, 25, choices[1]);
+			mvwaddstr(level_win, 1, 90, choices[2]);
+			mvwaddstr(level_win, 3, 90, choices[3]);
+			break;
+		case 1:
+			wattron(level_win, A_REVERSE);
+			mvwaddstr(level_win, 3, 25, choices[1]);
+			wattroff(level_win, A_REVERSE);
+			mvwaddstr(level_win, 1, 25, choices[0]);
+			mvwaddstr(level_win, 1, 90, choices[2]);
+			mvwaddstr(level_win, 3, 90, choices[3]);
+			break;
+		case 2:
+			wattron(level_win, A_REVERSE);
+			mvwaddstr(level_win, 1, 90, choices[2]);
+			wattroff(level_win, A_REVERSE);
+			mvwaddstr(level_win, 1, 25, choices[0]);
+			mvwaddstr(level_win, 3, 25, choices[1]);
+			mvwaddstr(level_win, 3, 90, choices[3]);
+			break;
+		case 3:
+			wattron(level_win, A_REVERSE);
+			mvwaddstr(level_win, 3, 90, choices[3]);
+			wattroff(level_win, A_REVERSE);
+			mvwaddstr(level_win, 1, 25, choices[0]);
+			mvwaddstr(level_win, 3, 25, choices[1]);
+			mvwaddstr(level_win, 1, 90, choices[2]);
+			break;
 	}
-	wrefresh(level_win);
+}
+
+/*
+void draw_borders(WINDOW *screen) {
+	int x, y, i;
+	getmaxyx(screen, y, x);
+
+	mvwprintw(screen, 0, 0, "+");
+	mvwprintw(screen, y-1, 0, "+");
+	mvwprintw(screen, 0, x-1, "+");
+	mvwprintw(screen, y-1, x-1, "+");
+
+	for (i = 1; i < y-1; ++i) {
+		mvwprintw(screen, i, 0, "|");
+		mvwprintw(screen, i, x-1, "|");
+	}
+
+	for (i = 1; i < x-1; ++i) {
+		mvwprintw(screen, 0, i, "-");
+		mvwprintw(screen, y-1, i, "-");
+	}
 }
 */
-int choice() {
-	WINDOW *level;
-	if ((level = newwin(0, 0, 0, 0)) == NULL) {
-		addstr("Unable to allocate window memory\n");
-		endwin();
-		exit(1);
-	}
 
-	int row, col;
-	getmaxyx(level, row, col);
-	char *msg = "Please use UP DOWN arrow keys to select a level and then hit <Enter> key to begin";
-	int msg_len = strlen(msg);
-	int center = (col - msg_len) / 2;
-	// mvwaddstr(level, 3, center, msg);
-	mvwprintw(level, row/2, center, "%s\n", msg);
-	wrefresh(level);
-	getch();
-
-	/*
+void choice(WINDOW *level) {
 	int key, lev_item = 0;
+	drawlevel(level, lev_item);
 	keypad(level, TRUE);
+	curs_set(FALSE);
 	noecho();
 	do {
-		key = getch();
+		key = wgetch(level);
 		switch (key) {
 			case KEY_DOWN:
 				++lev_item;
@@ -50,25 +83,18 @@ int choice() {
 				--lev_item;
 				if (lev_item < 0) lev_item = LEV-1;
 				break;
-			default:
+			case KEY_LEFT:
+				lev_item -= 2;
+				if (lev_item < 0) lev_item += 4;
+				break;
+			case KEY_RIGHT:
+				lev_item += 2;
+				if (lev_item > LEV-1) lev_item -= 4;
 				break;
 		}
 		drawlevel(level, lev_item);
+		wrefresh(level);
 	} while (key != '\n');
 	echo();
-	*/
-
-	napms(100000);
-	getch();
-	return 1;
-}
-
-int main()
-{
-	initscr();
-
-	choice();
-
-	endwin();
-	return 0;
+	wgetch(level);
 }

@@ -6,9 +6,10 @@
 #include<unistd.h>
 #include<curses.h>
 
-#define LEV 3
+#define LEV 4
 
-void welcome();
+void welcome(WINDOW *wel, int row, int col);
 void die(char *msg);
+void choice(WINDOW *level);
 
 #endif
