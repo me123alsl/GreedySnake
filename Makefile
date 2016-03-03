@@ -2,8 +2,8 @@
 
 TARGET = greedysnake
 CC = gcc
-SRC = greedysnake.c welcome.c levelchoice.c die.c 
-OBJ = greedysnake.o welcome.o levelchoice.o die.o
+SRC = greedysnake.c welcome.c levelchoice.c die.c snake.c
+OBJ = greedysnake.o welcome.o levelchoice.o die.o snake.o
 LDFLAGS = -lncurses
 
 # Uncomment and edit the line below if necessary
