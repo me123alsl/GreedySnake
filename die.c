@@ -1,4 +1,4 @@
-#include"greedysnake.h"
+#include"snake.h"
 
 void die(char *msg) {
 	endwin();

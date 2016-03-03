@@ -1,4 +1,4 @@
-#include"greedysnake.h"
+#include"snake.h"
 
 void welcome(WINDOW *wel, int row, int col) {
 	char *greedy[14] = {
@@ -59,14 +59,6 @@ void welcome(WINDOW *wel, int row, int col) {
 
 	int len = strlen(greedy[0]);
 
-	/* Center the wel_msg
-	char *wel_msg = "Welcome to Greedy Snake!";
-	int wel_msg_len = strlen(wel_msg);
-	int indent = len - wel_msg_len;
-	mvwaddstr(wel, 32, indent/2, wel_msg);
-	wrefresh(wel);
-	*/
-
 	/* 0 -> black, 1 -> red, 2 -> green, 3 -> yellow,
 	 * 4 -> blue, 5 -> magenta, 6 -> cyan, 7 -> white. */
 	int i, j, color_pair;
@@ -79,7 +71,7 @@ void welcome(WINDOW *wel, int row, int col) {
 			mvwaddch(wel, i, j, greedy[i][j]);
 			wrefresh(wel);
 			napms(1);
-			mvwaddch(wel, i+14, len-1-j, snake[i][len-1-j]);
+			mvwaddch(wel, i+15, len-1-j, snake[i][len-1-j]);
 			wrefresh(wel);
 			wattroff(wel, COLOR_PAIR(color_pair));
 		}
