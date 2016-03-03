@@ -6,13 +6,13 @@
 #include<unistd.h>
 #include<curses.h>
 
-#define LEV 3 			/* three level choices */
-#define MAX_LENGTH 100  /* the longest of the greedy snake */
+#define LEV 3 				/* three level choices */
+#define MAX_LENGTH 100  	/* the longest of the greedy snake */
 #define SNAKE_BODY '#'
 #define SNAKE_HEAD '@'
 #define FOOD '*'
 
-#define TOP_ROW 5 /* top_row */
+#define TOP_ROW 5 			/* top_row */
 #define BUT_ROW LINES - 1
 #define LEFT_EDGE 0
 #define RIGHT_EDGE COLS - 1
@@ -37,7 +37,7 @@ typedef struct {
 	enum direction headdirection;
 	int length;
 	psnakeNode pbody;
-}snakeHead;
+} snakeHead;
 
 typedef snakeHead* psnakeHead;
 
@@ -45,7 +45,7 @@ typedef snakeHead* psnakeHead;
 typedef struct {
 	int row;
 	int col;
-}position;
+} position;
 
 typedef position* pPosition;
 
@@ -87,12 +87,12 @@ position DisplayFood(psnakeHead head);    //display the food
 int IsFail(psnakeHead head);
 
 // The Welcome Greedy screen
-void welcome(WINDOW *wel, int row, int col);
+void Welcome(WINDOW *wel, int row, int col);
 
 // If there's errors, exit the program
-void die(char *msg);
+void Die(char *msg);
 
 // Level choices below welcome greedy snake
-int choice(WINDOW *level);
+int Choice(WINDOW *level);
 
 #endif

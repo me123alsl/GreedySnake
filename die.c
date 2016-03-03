@@ -1,6 +1,6 @@
 #include"snake.h"
 
-void die(char *msg) {
+void Die(char *msg) {
 	endwin();
 	puts(msg);
 	exit(1);

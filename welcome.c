@@ -1,6 +1,6 @@
 #include"snake.h"
 
-void welcome(WINDOW *wel, int row, int col) {
+void Welcome(WINDOW *wel, int row, int col) {
 	char *greedy[14] = {
 		"   ################      ##############         ################     ##################     ################      ##              ## ",
 		"  ##                    ##            ##       ##                    ##                     ##             ##      ##            ##  ",
@@ -50,11 +50,11 @@ void welcome(WINDOW *wel, int row, int col) {
 
 	/* first test for color ability of the terminal */
 	if (!has_colors()) {
-		die("Terminal cannot do colors.");
+		Die("Terminal cannot do colors.");
 	}
 	/* next attempt to initialize curses colors */
 	if (start_color() != OK) {
-		die("Unable to start colors.");
+		Die("Unable to start colors.");
 	}
 
 	int len = strlen(greedy[0]);

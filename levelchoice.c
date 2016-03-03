@@ -1,6 +1,6 @@
 #include"snake.h"
 
-void drawlevel(WINDOW *level_win, int lev_item) {
+void Drawlevel(WINDOW *level_win, int lev_item) {
 	char *choices[LEV] = {
 		"Level 1",
 		"Level 2",
@@ -33,9 +33,9 @@ void drawlevel(WINDOW *level_win, int lev_item) {
 	}
 }
 
-int choice(WINDOW *level) {
+int Choice(WINDOW *level) {
 	int key, lev_item = 0;
-	drawlevel(level, lev_item);
+	Drawlevel(level, lev_item);
 	keypad(level, TRUE);
 	curs_set(FALSE);
 	noecho();
@@ -59,11 +59,11 @@ int choice(WINDOW *level) {
 				if (lev_item > LEV-1) lev_item -= 3;
 				break;
 		}
-		drawlevel(level, lev_item);
+		Drawlevel(level, lev_item);
 		wrefresh(level);
 	} while (key != '\n');
 	echo();
-	if (lev_item == 0) return 100;
-	else if (lev_item == 1) return 200;
-	else return 300;
+	if (lev_item == 0) return 80;
+	else if (lev_item == 1) return 50;
+	else return 20;
 }
